@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import API from "../utils/API";
+import axios from "axios";
+// import API from "../utils/API";
 // import Container from "./components/Container";
 // import SearchForm from "./components/SortSearch";
 // import SearchResults from "./components/SearchResults";
@@ -13,17 +14,24 @@ export default function Home() {
 
   useEffect(() => {}, [userList]);
 
-  const displayFullList = () => {
-    API.getFullList().then((res) => {
-      const allPeople = res.data;
-      setUserList(allPeople).catch((err) =>
-        console.log({ error: err.message })
-      );
-    });
+  const URL = "https://randomuser.me/api/?inc=gender,name";
+
+  const displayFullList = async () => {
+    const allPeople = await axios(URL);
+    console.log(allPeople);
+    setUserList(allPeople).catch((err) =>
+    console.log({ error: err.message })
+  );
   };
+
 
   return (
     <div>
+      <div className="jumbotron jumbotron-fluid">
+        <div className="container">
+          <h1 className="display-4">Employee Directory</h1>
+        </div>
+      </div>
       {userList.map((userList) => {
         return (
           <ul key={userList.id} className="list-group ">
@@ -35,4 +43,4 @@ export default function Home() {
   );
 }
 
-// When the component mounts, get a list of all available base breeds and update this.state.breeds
+
