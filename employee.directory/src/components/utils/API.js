@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const URL = "https://randomuser.me/api/?inc=gender,name,location,email,picture,dob,phone,nat";
+const URL = "https://randomuser.me/api/";
 
-
-export default {
-  search: ()=> {
-    return axios.getFullList(URL);
+const API = {
+  getFullList: ()=> {
+    return axios.get(URL);
   }
 };
+export default API;
 
 // https://randomuser.me/documentation#format
 
