@@ -7,7 +7,7 @@ import Header from "../Header/Header";
 // import SearchResults from "./components/SearchResults";
 
 export default function Home() {
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState();
 
   useEffect(() => {
     displayFullList();
