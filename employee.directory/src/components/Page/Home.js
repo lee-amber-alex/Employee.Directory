@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
+import Header from "../Header/Header";
 // import API from "../utils/API";
 // import Container from "./components/Container";
 // import SearchForm from "./components/SortSearch";
@@ -14,33 +15,28 @@ export default function Home() {
 
   useEffect(() => {}, [userList]);
 
-  const URL = "https://randomuser.me/api/?inc=gender,name";
+  const URL =
+    "https://cors-anywhere.herokuapp.com/randomuser.me/api/?inc=gender,name,nat";
 
   const displayFullList = async () => {
-    const allPeople = await axios(URL);
-    console.log(allPeople);
-    setUserList(allPeople).catch((err) =>
-    console.log({ error: err.message })
-  );
+    const res = await fetch(URL);
+    const userAll = await res.json();
+    console.log(userAll);
+    setUserList(userAll).catch((err) => console.log({ error: err.message }));
   };
-
 
   return (
     <div>
-      <div className="jumbotron jumbotron-fluid">
-        <div className="container">
-          <h1 className="display-4">Employee Directory</h1>
-        </div>
-      </div>
-      {userList.map((userList) => {
-        return (
-          <ul key={userList.id} className="list-group ">
-            <li className="list-group-item">{userList.name}</li>
-          </ul>
-        );
-      })}
+      <Header>
+        <h1>Employee Directory</h1>
+      </Header>
+      <ul>
+        {
+        userList.map((userLists) => (
+          <li className="list-group-item">{userLists.name}</li>
+        ))
+        }
+      </ul>
     </div>
   );
 }
-
-
