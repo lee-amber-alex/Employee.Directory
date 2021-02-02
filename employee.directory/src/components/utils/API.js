@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://randomuser.me/api/";
+const URL = "https://cors-anywhere.herokuapp.com/randomuser.me/api/?inc=gender,name,nat"
 
 const API = {
   getFullList: ()=> {
