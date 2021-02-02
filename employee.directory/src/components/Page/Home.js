@@ -15,11 +15,13 @@ export default function Home() {
 
   useEffect(() => {}, [userList]);
 
-  const URL =
-    "https://cors-anywhere.herokuapp.com/randomuser.me/api/?inc=gender,name,nat";
+  // const URL =
+  //   "https://cors-anywhere.herokuapp.com/randomuser.me/api/?inc=name,nat";
+
+  const URL = "https://cors-anywhere.herokuapp.com/randomuser.me/api/?results=5&inc=name,nat";
 
   const displayFullList = async () => {
-    const res = await fetch(URL);
+    const res= await fetch(URL);
     const userAll = await res.json();
     console.log(userAll);
     setUserList(userAll).catch((err) => console.log({ error: err.message }));
@@ -31,11 +33,9 @@ export default function Home() {
         <h1>Employee Directory</h1>
       </Header>
       <ul>
-        {
-        userList.map((userLists) => (
+        {userList.map((userLists) => (
           <li className="list-group-item">{userLists.name}</li>
-        ))
-        }
+        ))}
       </ul>
     </div>
   );
