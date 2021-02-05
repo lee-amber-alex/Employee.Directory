@@ -9,13 +9,12 @@ import Container from "../Container/Container";
 export default function Home() {
   const [userList, setUserList] = useState([]);
   const [filteredUserlist, setfilteredUserlist] = useState(userList);
-
+  const [sortedList, setsortedList] = useState([userList]);
   const [name, setName] = useState("");
 
   useEffect(() => {
     API.getFullList()
       .then((res) => {
-        console.log(res);
         setUserList(res.data.results);
         setfilteredUserlist(res.data.results);
       })
@@ -33,18 +32,18 @@ export default function Home() {
     setfilteredUserlist(newfilteredUserlist);
   };
 
-  //  onclick the table should sort by name
-  // const handleSort = () => {
-  //   const sortedUserlist = userList.sort((a, b) => {
-  //     if (a.row.name.last < b.row.name.last) {
-  //       return 1;
-  //     } else {
-  //       return -1;
-  //     }
-  //   });
-  //   console.log(sortedUserlist);
-  //   setfilteredUserlist(sortedUserlist);
-  // };
+
+  const handleSort = (event) => { 
+    event.preventDefault();
+    let sortedData = [...sortedList].sort((a,b) => {
+    if(a[name.first] > b[name.first]) return 1;
+    if(a[name.first] < b[name.first]) return -1;
+    return 0;
+  });
+  console.log(sortedList);
+  console.log(sortedData);
+  setsortedList(sortedData)
+}
 
   return (
     <div>
@@ -52,13 +51,17 @@ export default function Home() {
         <h1>Employee Directory</h1>
       </Header>
       <Container>
-      <SearchForm
-        name={name}
-        setName={setName}
-        handleFormSubmit={handleFormSubmit}
-      />
-{/* handleSort={handleSort} */}
-      <Table rows={filteredUserlist}  />
+        <SearchForm
+          name={name}
+          setName={setName}
+          handleFormSubmit={handleFormSubmit}
+        />
+        
+        <Table 
+        rows={filteredUserlist} 
+        handleSort={handleSort}
+       
+        />
       </Container>
     </div>
   );
