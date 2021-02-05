@@ -1,10 +1,22 @@
 import React from "react";
 
+const styles = {
+  buttonStyle: {
+    paddingLR: "40px",
+    paddingTB: "3px",
+    marginL: "10px"
+
+  },
+  formStyle:{
+    marginB: "30px",
+    padding: "30px"
+  }
+};
 
 function SearchForm(props) {
   return (
     <>
-    <form className="search">
+    <form style={styles.formStyle} className="search">
 
         <input 
         type="text"
@@ -15,7 +27,7 @@ function SearchForm(props) {
 
         />
         
-        <button type="submit" onClick={props.handleFormSubmit} className="btn btn-success">
+        <button style={styles.buttonStyle} type="submit" onClick={props.handleFormSubmit}>
           Filter
         </button>
       
