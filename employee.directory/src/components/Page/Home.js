@@ -1,41 +1,49 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Header/Header";
+import Table from "../Table";
+import SearchForm from "../SearchForm";
 import API from "../utils/API";
+import Container from "../Container/Container";
 // import Container from "./components/Container";
-// import SearchForm from "./components/SortSearch";
-// import SearchResults from "./components/SearchResults";
 
 export default function Home() {
   const [userList, setUserList] = useState([]);
+  const [filteredUserlist, setfilteredUserlist] = useState(userList);
+
+  const [name, setName] = useState("");
 
   useEffect(() => {
-   API.getFullList().then(res => setUserList(res.results.data)).catch(err => console.log(err));
-   console.log(userList)});
-  
+    API.getFullList()
+      .then((res) => {
+        console.log(res);
+        setUserList(res.data.results);
+        setfilteredUserlist(res.data.results);
+      })
+      .catch((err) => console.log(err));
+  }, [setUserList]);
 
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const newfilteredUserlist = userList.filter((user) => {
+      if (user.name.first.includes(name) || user.name.last.includes(name)) {
+        return user;
+      }
+    });
+    console.log(newfilteredUserlist);
+    setfilteredUserlist(newfilteredUserlist);
+  };
 
-
-  // const checkUserState = ()=>{
-  //   if (userList){
-  //     userList.map((userLists) => (
-  //       <ul>
-  //       <li className="list-group-item">{userLists.name}</li>
-  //       </ul>
-  //     ))
-  //   }
-  // }
-
-  // const URL =
-  //   "https://cors-anywhere.herokuapp.com/randomuser.me/api/?inc=name,nat";
-
-  // const URL =
-  //   "https://cors-anywhere.herokuapp.com/randomuser.me/api/?results=5&inc=name,nat";
-
-  // const displayFullList = async () => {
-  //   const res = await fetch(URL);
-  //   const userAll = await res.json();
-  //   console.log(userAll);
-  //   setUserList(userAll).catch((err) => console.log({ error: err.message }));
+  //  onclick the table should sort by name
+  // const handleSort = () => {
+  //   const sortedUserlist = userList.sort((a, b) => {
+  //     if (a.row.name.last < b.row.name.last) {
+  //       return 1;
+  //     } else {
+  //       return -1;
+  //     }
+  //   });
+  //   console.log(sortedUserlist);
+  //   setfilteredUserlist(sortedUserlist);
   // };
 
   return (
@@ -43,11 +51,15 @@ export default function Home() {
       <Header>
         <h1>Employee Directory</h1>
       </Header>
-      {/* <ul>
-        {userList.map((userLists) => (
-          <li key={userLists.id} className="list-group-item">{userLists.name}</li>
-        ))}
-      </ul> */}
+      <Container>
+      <SearchForm
+        name={name}
+        setName={setName}
+        handleFormSubmit={handleFormSubmit}
+      />
+{/* handleSort={handleSort} */}
+      <Table rows={filteredUserlist}  />
+      </Container>
     </div>
   );
 }
