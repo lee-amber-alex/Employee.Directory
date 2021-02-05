@@ -8,7 +8,11 @@ export default function Table(props) {
       <thead>
         <tr>
           <th>Image</th>
-          <th onClick={props.handleSort}>Name</th>
+          <th 
+          onClick={props.handleSort}
+        
+          >Name
+          </th>
           <th>Phone</th>
           <th>Email</th>
           <th>DOB</th>
