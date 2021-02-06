@@ -25,6 +25,7 @@ export default function Home() {
     event.preventDefault();
     const newfilteredUserlist = userList.filter((user) => {
       if (user.name.first.includes(name) || user.name.last.includes(name)) {
+        
         return user;
       }
     });
