@@ -1,6 +1,6 @@
 {
   "name": "employee.directory",
-  "homepage": "https://lee-amber-alex.github.io",
+  "homepage": "https://lee-amber-alex.github.io/employee.directory",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,7 +18,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -b main -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
