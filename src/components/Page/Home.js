@@ -9,17 +9,17 @@ export default function Home() {
   const [userList, setUserList] = useState([]);
   const [filteredUserlist, setfilteredUserlist] = useState(userList);
   const [name, setName] = useState("");
-  const [sortedList, setsortedList] = useState();
+  // const [sortedList, setsortedList] = useState();
 
   useEffect(() => {
     API.getFullList()
       .then((res) => {
         setUserList(res.data.results);
         setfilteredUserlist(res.data.results);
-        setsortedList(res.data.results);
+        // setsortedList(res.data.results);
       })
       .catch((err) => console.log(err));
-  }, [setUserList]);
+  }, []);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -32,12 +32,16 @@ export default function Home() {
     setfilteredUserlist(newfilteredUserlist);
   };
 
-    const handleSort = () => {
-      let sortedData = userList.sort((a, b) => (a.name.first > b.name.first) ? 1 : -1)
-    console.log(sortedData);
-    setsortedList(sortedData);
-  }
+  const handleSort = () => {
+    let newfilteredUserlist = [...filteredUserlist].sort((a, b) =>
+      a.name.first > b.name.first ? 1 : -1,
+    );
+    console.log(newfilteredUserlist);
+    // setsortedList(sortedData);
+    setfilteredUserlist(newfilteredUserlist);
+  };
 
+  
 
   return (
     <div>
@@ -50,8 +54,11 @@ export default function Home() {
           setName={setName}
           handleFormSubmit={handleFormSubmit}
         />
-
-        <Table rows={userList ? filteredUserlist : sortedList} handleSort={handleSort} />
+        {userList ? (
+          <Table rows={filteredUserlist} handleSort={handleSort} />
+        ) : (
+          <p></p>
+        )}
       </Container>
     </div>
   );
