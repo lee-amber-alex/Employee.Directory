@@ -4,34 +4,28 @@ const styles = {
   buttonStyle: {
     paddingLR: "40px",
     paddingTB: "3px",
-    marginL: "10px"
-
+    marginL: "10px",
   },
-  formStyle:{
+  formStyle: {
     marginB: "30px",
-    padding: "30px"
-  }
+    padding: "30px",
+  },
 };
 
 function SearchForm(props) {
   return (
     <>
-    <form style={styles.formStyle} className="search">
+      <form style={styles.formStyle} className="search">
+        <input type="text" value={props.name} onChange={props.onChange} />
 
-        <input 
-        type="text"
-        value={props.name}
-        onChange={ e =>{
-          props.setName(e.target.value);
-        } }
-
-        />
-        
-        <button style={styles.buttonStyle} type="submit" onClick={props.handleFormSubmit}>
+        <button
+          style={styles.buttonStyle}
+          type="submit"
+          onClick={props.handleFormSubmit}
+        >
           Filter
         </button>
-      
-    </form>
+      </form>
     </>
   );
 }

@@ -1,48 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "../Header/Header";
 import Table from "../Table";
 import SearchForm from "../SearchForm";
-import API from "../utils/API";
 import Container from "../Container/Container";
+import logic from "./useHomepageHooks";
 
 export default function Home() {
-  const [userList, setUserList] = useState([]);
-  const [filteredUserlist, setfilteredUserlist] = useState(userList);
-  const [name, setName] = useState("");
-  // const [sortedList, setsortedList] = useState();
-
-  useEffect(() => {
-    API.getFullList()
-      .then((res) => {
-        setUserList(res.data.results);
-        setfilteredUserlist(res.data.results);
-        // setsortedList(res.data.results);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    const newfilteredUserlist = userList.filter((user) => {
-      if (user.name.first.includes(name) || user.name.last.includes(name)) {
-        return user;
-      }
-    });
-    console.log(newfilteredUserlist);
-    setfilteredUserlist(newfilteredUserlist);
-  };
-
-  const handleSort = () => {
-    let newfilteredUserlist = [...filteredUserlist].sort((a, b) =>
-      a.name.first > b.name.first ? 1 : -1,
-    );
-    console.log(newfilteredUserlist);
-    // setsortedList(sortedData);
-    setfilteredUserlist(newfilteredUserlist);
-  };
-
-  
-
+  const {
+    name,
+    setName,
+    handleFormSubmit,
+    handleSort,
+    userList,
+    filteredUserlist,
+    onChange,
+  } = logic();
   return (
     <div>
       <Header>
@@ -51,6 +23,7 @@ export default function Home() {
       <Container>
         <SearchForm
           name={name}
+          onChange={onChange}
           setName={setName}
           handleFormSubmit={handleFormSubmit}
         />
