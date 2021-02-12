@@ -26,13 +26,13 @@ Visit Employee.Directory [here.](https://lee-amber-alex.github.io/Employee.Direc
 Access the project repository [here.](https://github.com/lee-amber-alex/Employee.Directory) 
 
 ##### Home Page
-![Homescreen](public/img/home.png)  
+![Homescreen](img/home.png)  
 
 ##### Filter list:
-![filter](public/img/filter.png)
+![filter](img/filter.png)
 
 ##### Sort by Name column:
-![filter](public/img/sort.png)  
+![filter](img/sort.png)  
 
 ## Credit
 Data generated from [Random User API.](https://randomuser.me/)
