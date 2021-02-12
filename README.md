@@ -6,7 +6,7 @@
      
 ## Description
 
-Application that provides a filter and sorting function to make it easier to find a specific employee.
+Employee Directory using React. An application that provides a filter and sorting function to make it easier to find a specific employee.  Technologies used: React, Bootstrap, JavaScript.
 
 ## Table of Contents
  
